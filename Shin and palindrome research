@@ -1,0 +1,79 @@
+
+
+def update(i,z,bit):
+
+    # print(i)
+    while i<=n:
+        bit[i]+=z
+        i+=i&-i
+        # print(i)
+def query(i,bit):
+    sum = 0
+
+    while i>0:
+        sum+=bit[i]
+        i-=i&-i
+
+    return sum
+
+
+
+n,q = map(int,input().split())
+s = list(input())
+bit = []
+for i in range(26):
+    bit.append([0]*(n+1))
+for i in range(1,n+1):
+    z = ord(s[i-1])-97
+    update(i,1,bit[z])
+# update(1,1,bit[1])
+
+
+for i in range(q):
+    a,b,c = map(str,input().split())
+    if a == '2':
+        a,b,c = int(a),int(b),int(c)
+        cnt1 = 0
+        cnt2 = 0
+        segment_length=c-b+1
+        evenLength=(segment_length%2)==0
+        palindrome=True
+        odd_count=0
+        for k in range(26):
+            count = query(c,bit[k]) - query(b-1,bit[k])
+            # print(chr(97+k),z,i)
+            if(evenLength):
+                if(count%2==1):
+                    #Count cannot be odd!
+                    palindrome=False
+                    break
+            else:
+                if(count%2==1 and odd_count>0):
+                    palindrome=False
+                    break
+                elif(count%2==1):
+                    #One allowed
+                    odd_count+=1
+
+        if(palindrome):
+            print("yes")
+        else:
+            print("no")
+
+
+
+
+
+
+
+
+    else:
+        a,b = int(a),int(b)
+        z = ord(s[b-1])-97
+        idx = ord(c)-97
+
+        # print(z,idx,c)
+        s[b-1] = c
+        update(b,1,bit[idx])
+        update(b,-1,bit[z])
+
