@@ -1,0 +1,63 @@
+from bisect import bisect
+from collections import defaultdict
+# l = list(map(int,input().split()))
+# map(int,input().split()))
+from math import gcd,sqrt
+from collections import Counter
+import sys
+sys.setrecursionlimit(10**9)
+# int(input())
+ 
+ 
+ 
+def update(i,z,bit):
+ 
+    # print(i)
+    while i<=m:
+        bit[i]+=z
+        i+=i&-i
+        # print(i)
+def query(i,bit):
+    sum = 0
+ 
+    while i>0:
+        sum+=bit[i]
+        i-=i&-i
+ 
+    return sum
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+n,k = map(int,input().split())
+ans = []
+l = list(map(int,input().split()))
+ 
+z = sorted(set(l))
+m = len(z)
+bit = [0]*(m+1)
+la = []
+for i in range(n):
+    x = bisect(z,l.pop())
+    y = x
+    ans = query(y,bit)
+    update(x,1,bit)
+    la.append(n-len(l)-1-ans)
+ 
+la.sort()
+ans = 0
+j = n
+prev = 0
+# print(la)
+for i in range(n):
+    count = 0
+    while j>0 and la[i]+la[j-1]>=k:
+        count+=1
+        j-=1
+ 
+    ans = ans + n - max(j , i+1);
+ 
+print(ans)
