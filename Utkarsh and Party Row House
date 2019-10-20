@@ -1,0 +1,172 @@
+from bisect import bisect
+from collections import defaultdict
+# l = list(map(int,input().split()))
+# map(int,input().split()))
+from math import gcd,sqrt,ceil,inf
+from collections import Counter
+import sys
+sys.setrecursionlimit(1000000)
+from bisect import bisect
+from collections import defaultdict
+# l = list(map(int,input().split()))
+# map(int,input().split()))
+from math import gcd,sqrt,ceil,inf,factorial,log2
+from collections import Counter
+import sys
+sys.setrecursionlimit(10**9)
+
+
+def update(i,z,bit):
+
+    # print(i)
+    while i<len(bit):
+        bit[i]+=z
+        i+=i&-i
+        # print(i)
+def query(i,bit):
+    sum = 0
+
+    while i>0:
+        sum+=bit[i]
+        i-=i&-i
+
+    return sum
+
+
+n,q = map(int,input().split())
+
+l = list(map(int,input().split()))
+bit = [0]*(n+1)
+bit2 = [0]*(n+1)
+for i in range(n):
+    update(i+1,l[i],bit)
+    update(i+1,(i+1)*l[i],bit2)
+
+for _ in range(q):
+    yo = list(map(int,input().split()))
+    if yo[0] == 1:
+        a,b,c,d = yo
+        x,y = c,d
+        i = b
+        z1 = (query(y,bit) - query(x-1,bit))
+        # print(z1//(x-i))
+
+        # i = n-y+1
+        # j = n-x+1
+        # print(i,j)
+        # z2 = (query(y,bit2) - query(x-1,bit2))
+        # print(z1)
+        if b<=c or b>=d:
+           z2 = (query(y,bit2) - query(x-1,bit2))
+           print(abs(z2-z1*b))
+
+        else:
+            z3 = (query(b,bit2) - query(x-1,bit2))
+            z4 = (query(b,bit) - query(x-1,bit))
+            z5 = (query(y,bit2) - query(b-1,bit2))
+            z6 = (query(y,bit) - query(b-1,bit))
+            # print(z4,z3)
+            print(abs(z4*b-z3)+abs(z6*b-z5))
+
+
+
+
+
+
+
+    else:
+
+        a,b,c = yo
+
+        update(b,c,bit)
+        update(b,c*b,bit2)
+
+
+
+
+from bisect import bisect
+from collections import defaultdict
+# l = list(map(int,input().split()))
+# map(int,input().split()))
+from math import gcd,sqrt,ceil,inf
+from collections import Counter
+import sys
+sys.setrecursionlimit(1000000)
+from bisect import bisect
+from collections import defaultdict
+# l = list(map(int,input().split()))
+# map(int,input().split()))
+from math import gcd,sqrt,ceil,inf,factorial,log2
+from collections import Counter
+import sys
+sys.setrecursionlimit(10**9)
+
+
+def update(i,z,bit):
+
+    # print(i)
+    while i<len(bit):
+        bit[i]+=z
+        i+=i&-i
+        # print(i)
+def query(i,bit):
+    sum = 0
+
+    while i>0:
+        sum+=bit[i]
+        i-=i&-i
+
+    return sum
+
+
+n,q = map(int,input().split())
+
+l = list(map(int,input().split()))
+bit = [0]*(n+1)
+bit2 = [0]*(n+1)
+for i in range(n):
+    update(i+1,l[i],bit)
+    update(i+1,(i+1)*l[i],bit2)
+
+for _ in range(q):
+    yo = list(map(int,input().split()))
+    if yo[0] == 1:
+        a,b,c,d = yo
+        x,y = c,d
+        i = b
+        z1 = (query(y,bit) - query(x-1,bit))
+        # print(z1//(x-i))
+
+        # i = n-y+1
+        # j = n-x+1
+        # print(i,j)
+        # z2 = (query(y,bit2) - query(x-1,bit2))
+        # print(z1)
+        if b<=c or b>=d:
+           z2 = (query(y,bit2) - query(x-1,bit2))
+           print(abs(z2-z1*b))
+
+        else:
+            z3 = (query(b,bit2) - query(x-1,bit2))
+            z4 = (query(b,bit) - query(x-1,bit))
+            z5 = (query(y,bit2) - query(b-1,bit2))
+            z6 = (query(y,bit) - query(b-1,bit))
+            # print(z4,z3)
+            print(abs(z4*b-z3)+abs(z6*b-z5))
+
+
+
+
+
+
+
+    else:
+
+        a,b,c = yo
+
+        update(b,c,bit)
+        update(b,c*b,bit2)
+
+
+
+
