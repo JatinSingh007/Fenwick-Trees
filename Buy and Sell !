@@ -1,0 +1,62 @@
+from collections import defaultdict
+from math import sqrt,factorial,gcd,log2
+# map(int,input().split())
+# l = list(map(int,input().split()))
+mod = 10**9 + 7
+import sys
+sys.setrecursionlimit(10**9)
+def update(i,z,bit):
+
+    # print(i)
+    while i<len(bit):
+        # print(i)
+        bit[i]+=z
+        i+=i&-i
+        # print(i)
+def query(i,bit):
+    sum = 0
+
+    while i>0:
+        sum+=bit[i]
+        i-=i&-i
+
+    return sum
+def fac(n):
+    prev = 1
+    for i in range(1,n+1):
+        prev = prev%mod*i%mod
+        prev = prev%mod
+
+    return prev
+bit = [0]*(10**5 + 100)
+
+n = int(input())
+hash = defaultdict(int)
+cnt = defaultdict(int)
+for i in range(n):
+    a,b = map(str,input().split())
+    hash[a] = int(b)
+    cnt[b]+=1
+q = int(input())
+
+for i in range(q):
+     a,b = map(str,input().split())
+
+     if a == '+':
+         z = hash[b]
+         update(z,1,bit)
+         cnt[b]+=1
+     elif a == '-' :
+        if cnt[b]>0:
+         z = hash[b]
+         # if cnt[b]-1 == 0:
+         update(z,-1,bit)
+         cnt[b] -= 1
+            
+
+
+     else:
+         b = int(b)
+         print(query(10**5+1,bit)-query(b,bit))
+
+
