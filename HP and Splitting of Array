@@ -1,0 +1,90 @@
+#include <iostream>
+#include<bits/stdc++.h> 
+using namespace std; 
+int query(long long BITree[], int index) 
+{ 
+    int sum = 0;
+    while (index > 0) 
+    { 
+       
+        sum += BITree[index]; 
+  
+       
+        index -= index & (-index); 
+    } 
+    return sum; 
+} 
+
+void update(long long BITree[], long long  n, int index, int val) 
+{ 
+   
+    while (index < n) 
+    { 
+      
+       BITree[index] += val; 
+  
+       
+       index += index & (-index); 
+    } 
+} 
+  
+int main(){
+	  int t;
+      cin>>t;
+      for(int k = 0;k<t;k++){
+      	long long n,maxi = 0,inv=0;
+      	cin>>n;
+      	long long l[n];
+      	for (int i = 0;i<n;i++){
+      	 cin>>l[i];
+      	 maxi = max(maxi,l[i]);
+      	}
+      	long long bit[maxi+1],bit1[maxi+1],hash[maxi+1],hash1[maxi+1],ans[n+1];
+      	for (int i=0; i<=maxi; i++) {
+          bit[i] = 0; 
+      	  bit1[i] = 0;
+      		
+      	}
+      	for(int i=n-1;i>=0;i--){
+      		long long z = query(bit,l[i]-1);
+      		inv+=z;
+      		hash[l[i]] = z;
+      		update(bit,maxi+1,l[i],1);
+      		
+      	}
+      	// cout<<inv;
+      	
+      	for(int i = 0;i<n;i++){
+      		long long z = query(bit1,l[i]-1);
+      		hash1[l[i]] = z;
+      		update(bit1,maxi+1,l[i],1);
+      		
+      		
+      	}
+      
+      	ans[n] = inv;
+      	int j = 0;
+      	for(int i = 1;i<n;i++){
+      	    long long	z = n-(j+1);
+            long long  z1 = hash[l[j]];
+            long long  z2 = abs(z-hash[l[j]]);
+            long long  z3 = hash1[l[j]];
+            long long  z4 = abs(j-hash1[l[j]]);
+
+           inv = inv-(z1+z3) + z2+z4;
+           ans[i] = inv;
+           j+=1;
+      	}
+      	
+      	for(int i = 1;i<=n;i++){
+      		cout<<ans[i]<<" ";
+      	}
+      	cout<<'\n';
+      	
+      	
+      }
+      
+      
+      return 0;
+	
+}
