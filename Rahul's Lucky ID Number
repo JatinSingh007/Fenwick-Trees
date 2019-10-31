@@ -1,0 +1,59 @@
+from collections import defaultdict
+from math import sqrt,factorial,gcd,log2,inf
+# map(int,input().split())
+# l = list(map(int,input().split()))
+mod = 10**9 + 7
+import sys
+sys.setrecursionlimit(10**9)
+def update(i,z,bit):
+
+    # print(i)
+    while i<len(bit):
+        # print(i)
+        bit[i]+=z
+        i+=i&-i
+        # print(i)
+def query(i,bit):
+    sum = 0
+
+    while i>0:
+        sum+=bit[i]
+        i-=i&-i
+
+    return sum
+
+t = int(input())
+
+for i in range(t):
+
+
+   n = int(input())
+
+   bit = [0]*(n+1)
+   l = list(map(int,input().split()))
+
+   for j,i in enumerate(l):
+       if bin(i)[2:].count('1') == 2:
+           update(j+1,1,bit)
+
+   q = int(input())
+   for i in range(q):
+       a,b,c = map(int,input().split())
+       if a == 1:
+           temp = l[b-1]
+           l[b-1] = c
+           if bin(l[b-1])[2:].count('1') == 2 and  bin(temp)[2:].count('1') == 2:
+               pass
+           elif bin(l[b-1])[2:].count('1') == 2 and bin(temp)[2:].count('1') != 2:
+               update(b,1,bit)
+           elif bin(l[b-1])[2:].count('1') != 2 and bin(temp)[2:].count('1') == 2:
+               update(b,-1,bit)
+
+       else:
+         if b>c:
+             print(0)
+         else:
+           print(query(c,bit)-query(b-1,bit))
+
+
+
