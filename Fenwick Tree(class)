@@ -1,0 +1,28 @@
+class BIT:
+    def __init__(self, n):
+        sz = 1
+        while n >= sz:
+            sz *= 2
+        self.size = sz
+        self.data = [0]*sz
+ 
+    def sum(self, i):
+        assert i > 0
+        s = 0
+        while i > 0:
+            s += self.data[i]
+            i -= i & -i
+        return s
+ 
+    def add(self, i, x):
+        assert i > 0
+        while i < self.size:
+            self.data[i] += x
+            i += i & -i
+    def sum_range(self,i,j):
+        if i>j:
+            return 0
+        if i ==  1:
+            return self.sum(j)    
+        return self.sum(j) - self.sum(i-1)
+ 
